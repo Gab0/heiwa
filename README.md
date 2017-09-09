@@ -1,5 +1,6 @@
 A very nice app for traning your meditation skillz;
+Shall need them; transcend while a journey thru hell of youtube pop music unfolds.
 
-Requires playsound module for python 2.
+see requirements.txt
 
-usage: python2 meditation.py --help
+usage: python meditation.py --help

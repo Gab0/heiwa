@@ -1,1 +1,2 @@
-playsound
+bs4
+pytube
