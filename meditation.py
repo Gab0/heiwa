@@ -10,7 +10,7 @@ from os import path, chdir
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from subprocess import call, Popen, PIPE
-import multiprocessing
+from threading import Thread
 import random 
 import os
 from pytube import YouTube
@@ -88,7 +88,8 @@ for GONGO in range(options.GongoCount):
     time = 60
     if options.Radio:
         V = PlaySound('HEIWA_MEDIT.mp3')
-        multiprocessing.process(downloadVideo)
+        nextDownload=Thread(downloadVideo)
+        nextDownload.start()
         
     if options.Random:
         time = time*random.randrange(5e7 , 15e7)/1e8
