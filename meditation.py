@@ -86,9 +86,9 @@ for GONGO in range(options.GongoCount):
     PlaySound(gong)
 
     time = 60
-    if options.Radio:
+    if options.Radio:          
         V = PlaySound('HEIWA_MEDIT.mp3')
-        nextDownload=Thread(downloadVideo)
+        nextDownload=Thread(target=downloadVideo, args=())
         nextDownload.start()
         
     if options.Random:
