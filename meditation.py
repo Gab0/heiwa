@@ -1,5 +1,5 @@
 #!/bin/python
-#!-*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 #from playsound import playsound
 from time import sleep
@@ -31,12 +31,12 @@ def getRandomVideoAddr():
     VideoUrl = EmbedUrl.replace('embed/', 'watch?v=')
     return VideoUrl
 
-def downloadVideo(debug=True, filename='HEIWA_MEDIT'):
+def downloadVideo(debug=False, showMusicNames-True, filename='HEIWA_MEDIT'):
     VideoUrl = getRandomVideoAddr()
     if debug:
         print(VideoUrl)
     VIDEO = YouTube(VideoUrl)
-    if debug:
+    if showMusicNames or debug:
         print(VIDEO.filename)
     VIDEO.set_filename(filename)
     v=VIDEO.get_videos()[0]
@@ -44,11 +44,11 @@ def downloadVideo(debug=True, filename='HEIWA_MEDIT'):
         print(v)
     try:        
         os.remove(filename+'.3gp')
-        os.remove(filename+'.mp3')
+        os.remove(filename+'.wav')
     except OSError:
         pass
     v.download('.')
-    V = ['ffmpeg', '-i', 'HEIWA_MEDIT.3gp', 'HEIWA_MEDIT.mp3']
+    V = ['ffmpeg', '-i', 'HEIWA_MEDIT.3gp', '-af', "volume=0dB", 'HEIWA_MEDIT.wav']
     call(V, stdout=PIPE, stderr=PIPE)
     sleep(3)
 
@@ -87,7 +87,7 @@ for GONGO in range(options.GongoCount):
 
     time = 60
     if options.Radio:          
-        V = PlaySound('HEIWA_MEDIT.mp3')
+        V = PlaySound('HEIWA_MEDIT.wav')
         nextDownload=Thread(target=downloadVideo, args=())
         nextDownload.start()
         
@@ -106,3 +106,4 @@ for GONGO in range(options.GongoCount):
     print("\n\n")
     
 PlaySound(endgong)
+sleep(10)
