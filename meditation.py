@@ -31,7 +31,7 @@ def getRandomVideoAddr():
     VideoUrl = EmbedUrl.replace('embed/', 'watch?v=')
     return VideoUrl
 
-def downloadVideo(debug=False, showMusicNames-True, filename='HEIWA_MEDIT'):
+def downloadVideo(debug=False, showMusicNames=True, filename='HEIWA_MEDIT'):
     VideoUrl = getRandomVideoAddr()
     if debug:
         print(VideoUrl)
@@ -51,6 +51,7 @@ def downloadVideo(debug=False, showMusicNames-True, filename='HEIWA_MEDIT'):
     V = ['ffmpeg', '-i', 'HEIWA_MEDIT.3gp', '-af', "volume=0dB", 'HEIWA_MEDIT.wav']
     call(V, stdout=PIPE, stderr=PIPE)
     sleep(3)
+    return True
 
 def PlaySound(filename):
     C = ['play', filename]
@@ -81,7 +82,14 @@ HEIWA = '''
 
 print(HEIWA)
 if options.Radio:
-    downloadVideo()
+    success = False
+    while not success:
+        try: # downloadvideo is prone to failure;
+            success = downloadVideo()
+        except:
+            pass
+    
+
 for GONGO in range(options.GongoCount):
     PlaySound(gong)
 
